@@ -1,0 +1,33 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite",
+        "up": "concurrently \"php artisan serve\" \"npm run dev\" \"php artisan queue:work\" \"php artisan reverb:start --debug\""
+    },
+    "devDependencies": {
+        "@prettier/plugin-php": "^0.25.0",
+        "@tailwindcss/vite": "^4.0.0",
+        "autoprefixer": "^10.4.23",
+        "axios": "^1.11.0",
+        "concurrently": "^9.0.1",
+        "laravel-echo": "^2.3.4",
+        "laravel-vite-plugin": "^2.0.0",
+        "postcss": "^8.5.6",
+        "prettier": "^3.9.6",
+        "pusher-js": "^4.3.1",
+        "tailwindcss": "^4.1.18",
+        "vite": "^7.0.7"
+    },
+    "dependencies": {
+        "@fullcalendar/core": "^6.1.20",
+        "@fullcalendar/daygrid": "^6.1.20",
+        "@fullcalendar/interaction": "^6.1.20",
+        "@fullcalendar/list": "^6.1.20",
+        "@fullcalendar/timegrid": "^6.1.20",
+        "jquery": "^4.0.0",
+        "maplibre-gl": "^5.16.0"
+    }
+}

@@ -1,0 +1,230 @@
+[33mcommit 7663a8ce4cfe7a6a0d45148b55a339a7d440647d[m[33m ([m[1;36mHEAD[m[33m, [m[1;33mtag: v12.11.0[m[33m)[m
+Author: MUHAMMAD QISTI AMALUDDIN BIN MOHD ROZAINI <119896181+QistiAmal1212@users.noreply.github.com>
+Date:   Wed Nov 26 06:16:01 2025 +0800
+
+    Ignore Laravel compiled views for Vite  (#6714)
+    
+    * Ignore Laravel compiled views for Vite
+    
+    Before testing, run php artisan cache:clear to clear old compiled views.
+    
+    This issue only happens during local development when running npm run dev.
+    Laravel continuously recompiles Blade into PHP inside storage/framework/views (especially after Livewire re-renders), and these files are changed by Laravel itself, not by us.
+    
+    Because of that, Vite thinks we modified a file and triggers a full reload—even though the change is purely internal framework logic. This makes the reload behavior unacceptable and noisy during development.
+    
+    Since these compiled views belong to Laravel’s backend logic and not frontend assets, Vite does not need to watch them.
+    
+    Ignoring storage/framework/views keeps Vite stable and prevents reloads caused by Laravel doing its own internal work.
+    
+    * Vite ignore rule now in one clean line
+
+[33mcommit 8500bcc5bdded80636ea8ea67a3522252c04f0f0[m
+Author: Ryan Schaefer <contact.devsquid@gmail.com>
+Date:   Mon Nov 24 09:21:50 2025 -0500
+
+    Fix 8.5 PDO Deprecation (#6710)
+    
+    Fixes the 8.5 PDO deprecation using the same implementation in laravel/framework (https://github.com/laravel/framework/blob/4e40cfd963a4e00fe1dc1982dd6e3c6cab51c825/config/database.php#L64)
+
+[33mcommit f6b2e79bdbfc5bf4a37ad16466cc06ad79cc9e8f[m
+Author: Joost de Bruijn <joostdebruijn@users.noreply.github.com>
+Date:   Tue Nov 18 20:23:48 2025 +0100
+
+    fix: cookies are not available for subdomains by default (#6705)
+
+[33mcommit 9401db1c86af7b83e23eff0921f1782d02b63eb0[m
+Author: taylorotwell <463230+taylorotwell@users.noreply.github.com>
+Date:   Wed Nov 12 17:01:46 2025 +0000
+
+    Update CHANGELOG
+
+[33mcommit 181249000391597d80b872169680f3921e951928[m[33m ([m[1;33mtag: v12.10.1[m[33m)[m
+Author: Robin <129759474+robinmiau@users.noreply.github.com>
+Date:   Thu Nov 6 18:42:06 2025 +0100
+
+    Update schema URL in package.json (#6701)
+
+[33mcommit 10b782f1535005a06c3e74f7ec093ffaea3ac0e2[m
+Author: taylorotwell <463230+taylorotwell@users.noreply.github.com>
+Date:   Tue Nov 4 15:49:18 2025 +0000
+
+    Update CHANGELOG
+
+[33mcommit 76396a056d552b8a34077f151775037ac44b431a[m[33m ([m[1;33mtag: v12.10.0[m[33m)[m
+Author: Barry vd. Heuvel <barryvdh@gmail.com>
+Date:   Tue Nov 4 16:00:21 2025 +0100
+
+    Add background driver (#6699)
+    
+    * Add background driver
+    
+    Adds settings for PR https://github.com/laravel/framework/pull/57648
+    
+    * Update queue.php
+    
+    ---------
+    
+    Co-authored-by: Taylor Otwell <taylor@laravel.com>
+
+[33mcommit 6576dc16cffc99e4559a6fb8c1c40f2b5653d0db[m
+Author: Taylor Otwell <taylor@laravel.com>
+Date:   Thu Oct 30 12:37:49 2025 -0500
+
+    update language
+
+[33mcommit 5480b2a1866556e078eeefc19fd058fe9eaef63a[m
+Author: taylorotwell <463230+taylorotwell@users.noreply.github.com>
+Date:   Tue Oct 28 15:32:51 2025 +0000
+
+    Update CHANGELOG
+
+[33mcommit 6fc2c6dca34a1fa80dacf0ad20d7eef6e7ad9ebd[m[33m ([m[1;33mtag: v12.9.1[m[33m)[m
+Author: Tim MacDonald <hello@timacdonald.me>
+Date:   Fri Oct 24 00:49:17 2025 +1100
+
+    Comment out CLI workers for fresh applications (#6693)
+
+[33mcommit 9b737df489d7d2ef7e032b48836e4bce2e929128[m
+Author: Ahmed Alaa <92916738+AhmedAlaa4611@users.noreply.github.com>
+Date:   Wed Oct 22 22:21:46 2025 +0300
+
+    [12.x] Replace Bootcamp with Laravel Learn (#6692)
+    
+    * Replace Bootcamp with Laravel Learn
+    
+    * Revise text for Laravel Learn section
+    
+    Updated wording for Laravel Learn link in README.
+    
+    * Update Laravel learning resources in README
+    
+    Removed redundancy in Laravel learning resources and added a link to Laravel Learn for guided application building.
+    
+    ---------
+    
+    Co-authored-by: Taylor Otwell <taylor@laravel.com>
+
+[33mcommit 56c833e61f7897950ea4078fcdbd95cc12eb82f8[m
+Author: taylorotwell <463230+taylorotwell@users.noreply.github.com>
+Date:   Tue Oct 21 15:28:22 2025 +0000
+
+    Update CHANGELOG
+
+[33mcommit 8e93cae119abfab083041fa16ea38afd9c811df3[m[33m ([m[1;33mtag: v12.9.0[m[33m)[m
+Author: Taylor Otwell <taylor@laravel.com>
+Date:   Tue Oct 21 11:27:10 2025 -0400
+
+    add failover cache config
+
+[33mcommit 9eb5825101843d6dd11c740408da875940be4cf1[m
+Author: taylorotwell <463230+taylorotwell@users.noreply.github.com>
+Date:   Tue Oct 21 15:25:04 2025 +0000
+
+    Update CHANGELOG
+
+[33mcommit 473734f596a4ea9e411c4824fe14fc28f520df8d[m[33m ([m[1;33mtag: v12.8.0[m[33m)[m
+Author: nuno maduro <enunomaduro@gmail.com>
+Date:   Mon Oct 20 22:30:18 2025 +0100
+
+    Makes test suite using broadcast's `null` driver (#6691)
+
+[33mcommit b8344c35ba40c1a84ad137539007c8a65a96d33d[m
+Author: Taylor Otwell <taylor@laravel.com>
+Date:   Fri Oct 17 07:10:07 2025 -0500
+
+    add deferred queue
+
+[33mcommit 7db142b5c6f1529bf4d5ecca876772aa1ccf7790[m
+Author: Taylor Otwell <taylor@laravel.com>
+Date:   Fri Oct 17 05:14:52 2025 -0500
+
+    deferred queue config
+
+[33mcommit 5dfbed80c0ccee5b46302cda13e16e0106c099e9[m
+Author: taylorotwell <463230+taylorotwell@users.noreply.github.com>
+Date:   Wed Oct 15 12:57:54 2025 +0000
+
+    Update CHANGELOG
+
+[33mcommit ce337914f36acd3983b7fd31b78dd3a899d50efb[m[33m ([m[1;33mtag: v12.7.1[m[33m)[m
+Author: Sajjad Hossain Shohag <63788037+sajjadhossainshohag@users.noreply.github.com>
+Date:   Wed Oct 15 18:56:37 2025 +0600
+
+    Update queue.php (#6688)
+
+[33mcommit 976c622ae9f1c3bba015319ec6fdcab6162b49bf[m
+Author: Taylor Otwell <taylor@laravel.com>
+Date:   Wed Oct 15 07:54:42 2025 -0500
+
+    update failover
+
+[33mcommit 741aa393f01cad6edbbced3a11766c00903771f8[m
+Author: taylorotwell <463230+taylorotwell@users.noreply.github.com>
+Date:   Tue Oct 14 14:11:55 2025 +0000
+
+    Update CHANGELOG
+
+[33mcommit e07246407226c1781f6f65b0bdafbaf305bf6bee[m[33m ([m[1;33mtag: v12.7.0[m[33m)[m
+Author: Taylor Otwell <taylor@laravel.com>
+Date:   Mon Oct 13 20:17:40 2025 -0500
+
+    add failover driver
+
+[33mcommit b45fe690bd673bab66a43c428ab4dabc2a25783a[m
+Author: Taylor Otwell <taylor@laravel.com>
+Date:   Tue Oct 7 14:49:27 2025 -0500
+
+    disable model events by default when seeding
+
+[33mcommit 4cb927ab30b8725e509f99c719f38fcfd2299140[m
+Author: taylorotwell <463230+taylorotwell@users.noreply.github.com>
+Date:   Tue Oct 7 14:49:25 2025 +0000
+
+    Update CHANGELOG
+
+[33mcommit e297ded077ba849a15169a1b65fbab166f72fb37[m[33m ([m[1;33mtag: v12.6.0[m[33m)[m
+Author: Giuseppe Montuoro <giuseppe.montuoro@goldmont.it>
+Date:   Thu Oct 2 09:30:14 2025 +0200
+
+    Fix setup script (#6682)
+
+[33mcommit bd4a7dd9d8e6e94bf9ccb1411be01964d44f7f95[m
+Author: Taylor Otwell <taylor@laravel.com>
+Date:   Wed Oct 1 16:12:15 2025 +0100
+
+    reorder composer scripts
+
+[33mcommit da94152d73fe9d167ceee8a739a6022b747954fb[m
+Author: Taylor Otwell <taylor@laravel.com>
+Date:   Wed Oct 1 12:53:31 2025 +0100
+
+    remove seed from setup
+
+[33mcommit 782803367b230422671e738f2eccd8c003b86132[m
+Author: Taylor Otwell <taylor@laravel.com>
+Date:   Wed Oct 1 10:16:06 2025 +0100
+
+    ship setup script for cloning down new projects
+
+[33mcommit 65712bd72d83a5e315f313f563a0d2737819b2b9[m
+Author: taylorotwell <463230+taylorotwell@users.noreply.github.com>
+Date:   Tue Sep 30 10:36:48 2025 +0000
+
+    Update CHANGELOG
+
+[33mcommit ed88ce021dc3d20b6f9f8688da677bbd03bee59e[m[33m ([m[1;33mtag: v12.5.0[m[33m)[m
+Author: Luke Kuzmish <42181698+cosmastech@users.noreply.github.com>
+Date:   Tue Sep 30 06:36:06 2025 -0400
+
+    Add pre-package-uninstall script to composer.json (#6681)
+    
+    * Add pre-package-uninstall script to composer.json
+    
+    * Fix JSON formatting in composer.json
+
+[33mcommit af512c59e810872e7098ac7a08865d35c7427eb9[m
+Author: Fredika Putra <53744519+fredikaputra@users.noreply.github.com>
+Date:   Thu Sep 25 22:53:28 2025 +0700
+
+    Update .editorconfig to target compose.yaml instead of docker-
