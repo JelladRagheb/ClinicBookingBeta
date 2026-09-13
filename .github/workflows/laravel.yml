@@ -1,0 +1,49 @@
+name: laravel CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD:
+          MYSQL_DATABASE: clinicbooking
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, dom, fileinfo, pdo_mysql
+          coverage: none
+
+      - name: Install Dependencies
+        run: composer install -o --no-interaction --prefer-dist
+
+      - name: Run composer install
+        run: composer install -n --prefer-dist
+
+      - name: Generate App Key
+        run: php artisan key:generate
+
+      - name: Run Database Migrations
+        run: php artisan migrate
+
+      - name: Run Tests
+        run: php artisan test
+
+      - name: Run tests
+        run: vendor/bin/phpunit

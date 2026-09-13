@@ -12,9 +12,9 @@
                     {{ __('Welcome back, Admin!') }}
                 </div>
             </div>
-            <button onclick="getLocation()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            <!-- <button onclick="getLocation()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                 type="button">Click Me!
-            </button>
+            </button> -->
 
             <script>
                 function getLocation() {
