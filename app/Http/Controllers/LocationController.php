@@ -109,19 +109,33 @@ class LocationController extends Controller
             return view('locations.search');
         }
 
-        // Haversine formula to calculate distance
-        $locations = Location::select('*')
-            ->selectRaw(
-                '( 6371 * acos( cos( radians(?) ) *
-                   cos( radians( latitude ) ) *
-                   cos( radians( longitude ) - radians(?) ) +
-                   sin( radians(?) ) *
-                   sin( radians( latitude ) ) ) ) AS distance',
-                [$lat, $lng, $lat]
-            )
-            ->having('distance', '<', $radius)
-            ->orderBy('distance')
-            ->get();
+        if (config('database.default') === 'sqlite') {
+            $locations = Location::all()->filter(function ($loc) use ($lat, $lng, $radius) {
+                // Ensure values are not null
+                if (!$loc->latitude || !$loc->longitude) return false;
+                
+                $distance = 6371 * acos(
+                    cos(deg2rad($lat)) * cos(deg2rad($loc->latitude)) * cos(deg2rad($loc->longitude) - deg2rad($lng)) + 
+                    sin(deg2rad($lat)) * sin(deg2rad($loc->latitude))
+                );
+                $loc->distance = $distance;
+                return $distance < $radius;
+            })->sortBy('distance')->values();
+        } else {
+            // Haversine formula to calculate distance
+            $locations = Location::select('*')
+                ->selectRaw(
+                    '( 6371 * acos( cos( radians(?) ) *
+                       cos( radians( latitude ) ) *
+                       cos( radians( longitude ) - radians(?) ) +
+                       sin( radians(?) ) *
+                       sin( radians( latitude ) ) ) ) AS distance',
+                    [$lat, $lng, $lat]
+                )
+                ->having('distance', '<', $radius)
+                ->orderBy('distance')
+                ->get();
+        }
 
         if ($request->wantsJson()) {
             return response()->json($locations);

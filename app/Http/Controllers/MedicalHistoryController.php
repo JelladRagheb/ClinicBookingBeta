@@ -17,44 +17,54 @@ class MedicalHistoryController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user->hasRole('patient')) {
+        if (!$user->hasRole("patient")) {
             abort(403);
         }
 
-        $patient = PatientProfile::where('user_id', $user->id)
-            ->with(['medicalHistories', 'consultations.doctor.user', 'prescriptions.items', 'prescriptions.doctor.user'])
+        $patient = PatientProfile::where("user_id", $user->id)
+            ->with([
+                "medicalHistories",
+                "consultations.doctor.user",
+                "prescriptions.items",
+                "prescriptions.doctor.user",
+            ])
             ->firstOrFail();
 
-        return view('patient.medical-records.index', compact('patient'));
+        return view("patient.medical-records.index", compact("patient"));
     }
 
     /**
      * Store a new medical history record.
+     */
+    public function store(Request $request)
     {
         $user = Auth::user();
 
-        if (!$user->hasRole('doctor')) {
-            abort(403, 'Unauthorized action.');
+        if (!$user->hasRole("doctor")) {
+            abort(403, "Unauthorized action.");
         }
 
         $validated = $request->validate([
-            'patient_profile_id' => 'required|exists:patient_profiles,id',
-            'category' => 'required|in:allergy,chronic_condition,surgery,family_history,other',
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'severity' => 'nullable|in:low,medium,high,critical',
-            'onset_date' => 'nullable|date',
-            'is_active' => 'boolean',
+            "patient_profile_id" => "required|exists:patient_profiles,id",
+            "category" =>
+                "required|in:allergy,chronic_condition,surgery,family_history,other",
+            "title" => "required|string|max:255",
+            "description" => "nullable|string",
+            "severity" => "nullable|in:low,medium,high,critical",
+            "onset_date" => "nullable|date",
+            "is_active" => "boolean",
         ]);
 
-        $validated['recorded_by'] = $user->id;
-        $validated['recorded_at'] = now();
+        $validated["recorded_by"] = $user->id;
+        $validated["recorded_at"] = now();
 
         MedicalHistory::create($validated);
 
-        return back()->with('success', 'Medical history record added successfully.');
+        return back()->with(
+            "success",
+            "Medical history record added successfully.",
+        );
     }
-
     /**
      * Remove the specified resource from storage.
      * Accessible by Doctors.
@@ -63,7 +73,7 @@ class MedicalHistoryController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user->hasRole('doctor')) {
+        if (!$user->hasRole("doctor")) {
             abort(403);
         }
 
@@ -72,6 +82,6 @@ class MedicalHistoryController extends Controller
 
         $medicalHistory->delete();
 
-        return back()->with('success', 'Medical history record removed.');
+        return back()->with("success", "Medical history record removed.");
     }
 }

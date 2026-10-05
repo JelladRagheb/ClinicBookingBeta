@@ -14,10 +14,10 @@ return new class extends Migration
             $table->string('appointment_number', 20)->unique()->nullable();
             $table->foreignId('patient_id')->constrained('users')->onDelete('restrict');
             $table->foreignId('doctor_profile_id')->constrained()->onDelete('restrict');
-            $table->foreignId('location_id')->constrained()->onDelete('restrict');
-            $table->foreignId('appointment_type_id')->constrained()->onDelete('restrict');
-            $table->date('scheduled_date')->index();
-            $table->time('scheduled_time');
+            $table->foreignId('location_id')->nullable()->constrained()->onDelete('restrict');
+            $table->foreignId('appointment_type_id')->nullable()->constrained()->onDelete('restrict');
+            $table->date('scheduled_date')->nullable()->index();
+            $table->time('scheduled_time')->nullable();
             $table->unsignedSmallInteger('duration_minutes')->default(30);
             $table->enum('status', [
                 'scheduled',

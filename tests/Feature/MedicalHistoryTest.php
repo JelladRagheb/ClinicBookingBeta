@@ -37,11 +37,10 @@ class MedicalHistoryTest extends TestCase
 
         // Appointment to establish relationship
         Appointment::create([
-            'patient_profile_id' => $patientProfile->id,
+            'patient_id' => $patient->id,
             'doctor_profile_id' => $doctorProfile->id,
-            'appointment_date' => now()->addDay(),
+            'scheduled_date' => now()->addDay()->toDateString(),
             'status' => 'scheduled',
-            'appointment_type_id' => 1 // Assuming 1 exists or is optional? Factory might be safer but simplistic here.
         ]);
 
         $response = $this->actingAs($doctor)->get(route('doctor.patients.show', $patientProfile->id));
@@ -85,11 +84,10 @@ class MedicalHistoryTest extends TestCase
         $patientProfile = PatientProfile::create(['user_id' => $patient->id]);
 
         $appointment = Appointment::create([
-            'patient_profile_id' => $patientProfile->id,
+            'patient_id' => $patient->id,
             'doctor_profile_id' => $doctorProfile->id,
-            'appointment_date' => now(),
+            'scheduled_date' => now()->toDateString(),
             'status' => 'scheduled',
-            // 'appointment_type_id' => ... 
         ]);
 
         $response = $this->actingAs($doctor)->post(route('consultations.store'), [

@@ -76,10 +76,10 @@ class ConsultationController extends Controller
             'chief_complaint' => $validated['chief_complaint'],
             'symptoms' => $validated['symptoms'] ?? [],
             'diagnosis' => $validated['diagnosis'],
-            'treatment_plan' => $validated['treatment_plan'],
-            'notes' => $validated['notes'],
+            'treatment_plan' => $validated['treatment_plan'] ?? null,
+            'notes' => $validated['notes'] ?? null,
             'follow_up_required' => $request->has('follow_up_required'),
-            'follow_up_days' => $validated['follow_up_days'],
+            'follow_up_days' => $validated['follow_up_days'] ?? null,
         ]);
 
         // If vital signs provided, create them
