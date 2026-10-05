@@ -52,6 +52,7 @@ jobs:
           APP_ENV: testing
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
+          CI: false
 
       - name: Run Tests
         run: php artisan test
