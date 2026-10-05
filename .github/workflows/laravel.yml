@@ -34,7 +34,6 @@ jobs:
 
       - name: Compile Frontend Assets
         run: |
-          npm ci
           npm run build
         env:
           CI: false
