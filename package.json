@@ -28,6 +28,6 @@
         "@fullcalendar/list": "^6.1.20",
         "@fullcalendar/timegrid": "^6.1.20",
         "jquery": "^4.0.0",
-        "maplibre-gl": "^5.16.0"
+        "maplibre-gl": "^6.12.0"
     }
 }
